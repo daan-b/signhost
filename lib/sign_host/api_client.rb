@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module SignHost
   class ApiClient
     attr_reader :configuration
@@ -39,6 +41,32 @@ module SignHost
       }
     end
 
+    def get_signed_document(file_id)
+      RestClient.get(signed_document_url(file_id), auth_headers){ |response, request, result, &block |
+        case response.code
+        when 200
+          file = Tempfile.new(['receipt', '.pdf'])
+          file.write response.body
+          file.path
+        else
+          response.return!(request, result, &block)
+        end
+      }
+    end
+
+    def get_receipt(transaction_id)
+      RestClient.get(receipt_url(transaction_id), auth_headers){ |response, request, result, &block |
+        case response.code
+        when 200
+          file = Tempfile.new(['receipt', '.pdf'])
+          file.write response.body
+          file.path
+        else
+          response.return!(request, result, &block)
+        end
+      }
+    end
+
     private
 
     def new_transaction_url
@@ -51,6 +79,14 @@ module SignHost
 
     def transaction_url(transaction_id)
       api_url + "transaction/" + transaction_id
+    end
+
+    def signed_document_url(file_id)
+      api_url + "file/document/#{file_id}"
+    end
+
+    def receipt_url(transaction_id)
+      api_url + "file/receipt/#{transaction_id}"
     end
 
     def api_url
