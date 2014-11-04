@@ -45,7 +45,7 @@ module SignHost
       RestClient.get(signed_document_url(file_id), auth_headers){ |response, request, result, &block |
         case response.code
         when 200
-          file = Tempfile.new(['receipt', '.pdf'])
+          file = Tempfile.new(['signed-document', '.pdf'])
           file.write response.body
           file.path
         else
