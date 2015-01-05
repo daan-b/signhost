@@ -24,13 +24,14 @@ module SignHost::PayloadCreator
 
   def self.inject_signers(signers)
     signers.collect do |hash|
-      hash.assert_valid_keys(:email, :mobile, :require_sms_verification, :send_sign_request, :sign_request_message, :language, :reference, :return_url)
+      hash.assert_valid_keys(:email, :mobile, :require_scribble, :require_sms_verification, :send_sign_request, :sign_request_message, :language, :reference, :return_url)
       hash.require_keys(:email)
       hash.require_keys(:sign_request_message) if hash[:send_sign_request]
 
       {
         Email: hash[:email],
         Mobile: hash[:mobile],
+        RequireScribble: hash[:require_scribble],
         RequireSmsVerification: hash[:require_sms_verification],
         SendSignRequest: hash[:send_sign_request],
         SignRequestMessage: hash[:sign_request_message],

@@ -47,6 +47,7 @@ describe SignHost::PayloadCreator do
     {
       Email: 'user@email.com',
       Mobile: '06555',
+      RequireScribble: true,
       RequireSmsVerification: true,
       SendSignRequest: true,
       Reference: true,
@@ -60,6 +61,6 @@ describe SignHost::PayloadCreator do
   end
 
   def signer_hash
-    { email: "user@email.com", mobile: '06555', require_sms_verification: true, send_sign_request: true, :sign_request_message => "please sign", reference: true, return_url: true }
+    { email: "user@email.com", mobile: '06555', require_scribble: true, require_sms_verification: true, send_sign_request: true, :sign_request_message => "please sign", reference: true, return_url: true }
   end
 end
