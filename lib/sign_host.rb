@@ -2,7 +2,6 @@ require 'rubygems'
 require 'bundler/setup'
 require 'json'
 require 'rest-client'
-require 'pry'
 require 'active_support/core_ext/hash/keys'
 
 class Hash
