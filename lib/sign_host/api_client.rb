@@ -46,6 +46,7 @@ module SignHost
         case response.code
         when 200
           file = Tempfile.new(['signed-document', '.pdf'])
+          file.binmode
           file.write response.body
           file.path
         else
@@ -59,6 +60,7 @@ module SignHost
         case response.code
         when 200
           file = Tempfile.new(['receipt', '.pdf'])
+          file.binmode
           file.write response.body
           file.path
         else
