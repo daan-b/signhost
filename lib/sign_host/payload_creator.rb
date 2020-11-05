@@ -24,7 +24,7 @@ module SignHost::PayloadCreator
 
   def self.inject_signers(signers)
     signers.collect do |hash|
-      hash.assert_valid_keys(:email, :mobile, :require_scribble, :require_sms_verification, :send_sign_request, :sign_request_message, :language, :reference, :return_url)
+      hash.assert_valid_keys(:email, :mobile, :require_scribble, :require_sms_verification, :send_sign_request, :sign_request_message, :language, :reference, :return_url, :scribble_name, :scribble_name_fixed)
       hash.require_keys(:email)
       hash.require_keys(:sign_request_message) if hash[:send_sign_request]
 
@@ -36,6 +36,8 @@ module SignHost::PayloadCreator
         SendSignRequest: hash[:send_sign_request],
         SignRequestMessage: hash[:sign_request_message],
         Language: hash[:language],
+        ScribbleName: hash[:scribble_name],
+        ScribbleNameFixed: hash[:scribble_name_fixed],
         Reference: hash[:reference],
         ReturnUrl: hash[:return_url]
       }.reject{|k,v| v.nil?}
